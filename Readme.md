@@ -62,8 +62,21 @@ Options and arguments:
     -p,--prefix <arg>       arbitrary unique prefix to identify iCalendar feed in Google Calendar e.g. meetup
     -s,--gserviceid <arg>   Google service ID e.g. abc@developer.gserviceaccount.com
 
+
+Getting iCalendar feed URL
+==========================
+
+iCalendar feeds usually start with webcal:// protocol prefix. java.net.URL does not handle this protocol. Please replace webcal:// with http://. Tested for Meetup and Facebook feeds.
+
+Getting Google Calendar API credentials
+=======================================
+
+1. Get ID of our Google Calendar - see [this to learn how to find it](http://googleappstroubleshootinghelp.blogspot.com/2012/09/how-to-find-calendar-id-of-google.html)
+2. Set up Google Calendar API account - create your dev account according to instructions from https://developers.google.com/google-apps/calendar/firstapp?hl=pl#getaccount. You will get service ID and .p12 key.
+3. Grant write access to your generated API service ID - see [this](https://support.google.com/calendar/answer/143754?hl=en)
+
 Testing
-=============
+=======
 
 IMPORTANT: Some integration tests require access to Google Calendar. Tests delete all events before running tests so make sure that this calendar is used only for testing.
 
