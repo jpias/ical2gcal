@@ -1,0 +1,83 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Meetup//RemoteApi//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-ORIGINAL-URL:http://www.meetup.com/Polish-Java-User-Group/events/ical/
+X-WR-CALNAME:Events - Polish Java User Group
+BEGIN:VTIMEZONE
+TZID:Europe/Warsaw
+X-LIC-LOCATION:Europe/Warsaw
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20140928T214301Z
+DTSTART;TZID=Europe/Warsaw:20140930T160000
+DTEND;TZID=Europe/Warsaw:20140930T190000
+STATUS:CONFIRMED
+SUMMARY:GeeCON Prague conference ticket raffle
+DESCRIPTION:Polish Java User Group\nTuesday\, September 30 at 4:00 PM\n\n
+ This is not a physical meeting. Sign up to participate in a draw of 1 fr
+ ee ticket for GeeCON Prague       The winner will be picked at random. T
+ o ente...\n\nDetails: http://www.meetup.com/Polish-Java-User-Group/event
+ s/209417392/
+CLASS:PUBLIC
+CREATED:20140925T105348Z
+GEO:50.06;19.95
+LOCATION:Online (Virtualna 65535\, Kraków\, Poland)
+URL:http://www.meetup.com/Polish-Java-User-Group/events/209417392/
+LAST-MODIFIED:20140925T105526Z
+UID:event_209417392@meetup.com
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20140928T214301Z
+DTSTART;TZID=Europe/Warsaw:20141007T190000
+DTEND;TZID=Europe/Warsaw:20141007T220000
+STATUS:CONFIRMED
+SUMMARY:One beer talks #4 @ CodeWise
+DESCRIPTION:Polish Java User Group\nTuesday\, October 7 at 7:00 PM\n\nSer
+ ies of short talks\, this time: Marcin Godyń - ???   Michał Pędziałek - 
+ JMH   and you\, because you deserve this place! Register @...\n\nDetails
+ : http://www.meetup.com/Polish-Java-User-Group/events/203963312/
+CLASS:PUBLIC
+CREATED:20140829T185453Z
+GEO:50.06;19.95
+LOCATION:Codewise (Lubicz 17H\, Kraków\, Poland)
+URL:http://www.meetup.com/Polish-Java-User-Group/events/203963312/
+LAST-MODIFIED:20140912T130654Z
+UID:event_203963312@meetup.com
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20140928T214301Z
+DTSTART;TZID=Europe/Warsaw:20141012T180000
+DTEND;TZID=Europe/Warsaw:20141012T210000
+STATUS:CONFIRMED
+SUMMARY:Neo4j - hack the night! / Nocne hakowanie Neo4j!
+DESCRIPTION:Polish Java User Group\nSunday\, October 12 at 6:00 PM\n\nWe 
+ are living in a connected world\, every day we create more and more conn
+ ections\, we are connected with our friends on Facebook\, our followers 
+ on Twi...\n\nDetails: http://www.meetup.com/Polish-Java-User-Group/event
+ s/209273522/
+CLASS:PUBLIC
+CREATED:20140924T193905Z
+GEO:50.06;19.95
+LOCATION:SmartRecruiters (Fabryczna 20a\, Kraków\, 3 piętro\, Kraków\, Po
+ land)
+URL:http://www.meetup.com/Polish-Java-User-Group/events/209273522/
+LAST-MODIFIED:20140924T200339Z
+UID:event_209273522@meetup.com
+END:VEVENT
+END:VCALENDAR

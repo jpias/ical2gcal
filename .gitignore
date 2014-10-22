@@ -1,0 +1,10 @@
+.idea
+*.iml
+build
+local
+test_config.groovy
+gradle/wrapper
+gradlew
+gradlew.bat
+.gradle
+.DS_Store

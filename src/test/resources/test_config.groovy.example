@@ -1,0 +1,8 @@
+google {
+    // calendar should be for test purpose only, all data will be removed before running tests
+    calendarId = 'ABC@group.calendar.google.com'
+
+    // calendar should be for test purpose only, all data will be removed before running tests
+    serviceId = 'XYZ@developer.gserviceaccount.com'
+    keyFile = '/A/B/C/myKey.p12'
+}
