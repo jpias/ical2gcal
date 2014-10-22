@@ -21,8 +21,11 @@ class Synchronization {
     }
 
     def synchronize(futureOnly=false) {
+        log.info 'Synchronizing calendars'
         iCalEvents = iCal.events
+        log.info "Fetched ${iCalEvents.size()} iCalendar events"
         gCalEvents = gCal.events(futureOnly)
+        log.info "Fetched ${gCalEvents.size()} Google Calendar events"
         addOrUpdateEvents()
         removeNonExistingEvents()
     }
@@ -32,7 +35,7 @@ class Synchronization {
     }
 
     private addOrUpdateEvents() {
-        log.info "Creating or updating ${iCalEvents.size()} iCal events"
+        log.info "Creating or updating ${iCalEvents.size()} iCalendar events"
         iCalEvents.each { iCalEvent ->
             def gCalEvent = translator.iCalEventToGcalEvent(iCalEvent)
             def existingGCalEvent = gCalEvents.find {
@@ -51,7 +54,7 @@ class Synchronization {
     }
 
     private removeNonExistingEvents() {
-        log.info "Deleting iCal events that don't exist any more"
+        log.info "Deleting iCalendar events that don't exist any more"
         def eventsToDelete = gCalEvents.findAll{shouldBeDeleted(it)}
         log.info "Found ${eventsToDelete.size()} events to delete"
         if(eventsToDelete.isEmpty()){

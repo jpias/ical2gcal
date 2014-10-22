@@ -25,23 +25,24 @@ class GoogleCalendar {
     }
 
     def events(futureOnly = false) {
+        log.fine "Fetching events"
         def events = fetchEvents(futureOnly)
-        log.info "Fetched ${events.size()} iCalEvents"
+        log.fine "Fetched ${events.size()} iCalEvents"
         return events
     }
 
     def insert(Event event) {
-        log.info "Adding event"
+        log.fine "Adding event"
         calendarApi.events().insert(calendarId, event).execute()
     }
 
     def update(Event event) {
-        log.info "Updating event ${event.id}"
+        log.fine "Updating event ${event.id}"
         calendarApi.events().update(calendarId, event.id, event).execute()
     }
 
     def delete(Event event) {
-        log.info "Deleting event ${event.id}"
+        log.fine "Deleting event ${event.id}"
         calendarApi.events().delete(calendarId, event.id).execute()
     }
 
@@ -55,7 +56,7 @@ class GoogleCalendar {
         // You may get a few empty pages with nextToken before you get to events
         // more: http://stackoverflow.com/questions/18566386/google-calendar-v3-api-events-list-request-return-empty-list
         while (true) {
-            log.info "Fetching page ${++i}"
+            log.fine "Fetching page ${++i}"
             def list = calendarApi.events().list(calendarId)
             if (futureOnly) {
                 list.setTimeMin(now)
