@@ -11,7 +11,6 @@ dependencies {
     compile 'commons-cli:commons-cli:1.2'
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0'){
         exclude group: 'org.codehaus.groovy'
-
     }
     testCompile 'cglib:cglib-nodep:3.1'
     testCompile 'org.objenesis:objenesis:2.1'
