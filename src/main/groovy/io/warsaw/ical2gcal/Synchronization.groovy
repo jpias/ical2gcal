@@ -23,9 +23,9 @@ class Synchronization {
     def synchronize(futureOnly=false) {
         log.info 'Synchronizing calendars'
         iCalEvents = iCal.events
-        log.info "Fetched ${iCalEvents.size()} iCalendar events"
+        log.info "Fetched ${iCalEvents.size()} iCalendar event(s)"
         gCalEvents = gCal.events(futureOnly)
-        log.info "Fetched ${gCalEvents.size()} Google Calendar events"
+        log.info "Fetched ${gCalEvents.size()} Google Calendar event(s)"
         addOrUpdateEvents()
         removeNonExistingEvents()
     }
@@ -35,33 +35,33 @@ class Synchronization {
     }
 
     private addOrUpdateEvents() {
-        log.info "Creating or updating ${iCalEvents.size()} iCalendar events"
+        log.info "Creating or updating ${iCalEvents.size()} iCalendar event(s)"
         iCalEvents.each { iCalEvent ->
             def gCalEvent = translator.iCalEventToGcalEvent(iCalEvent)
             def existingGCalEvent = gCalEvents.find {
                 translator.sourceId(it) == translator.uniqueId(iCalEvent)
             }
             if (existingGCalEvent) {
-                log.info 'Updating ' + iCalEvent.uid.value
+                log.info "Updating synchronized event for iCalendar event with ID: ${iCalEvent.uid.value}"
                 gCalEvent.setId(existingGCalEvent.getId())
                 gCal.update(gCalEvent)
                 updatedGCalEvents << existingGCalEvent
             } else {
-                log.info 'Creating ' + iCalEvent.uid.value
+                log.info "Creating synchronized event for iCalendar event with ID: ${iCalEvent.uid.value}"
                 gCal.insert(gCalEvent)
             }
         }
     }
 
     private removeNonExistingEvents() {
-        log.info "Deleting iCalendar events that don't exist any more"
+        log.info "Deleting synchronized events that don't exist in iCalendar any more"
         def eventsToDelete = gCalEvents.findAll{shouldBeDeleted(it)}
-        log.info "Found ${eventsToDelete.size()} events to delete"
+        log.info "Found ${eventsToDelete.size()} event(s) to delete"
         if(eventsToDelete.isEmpty()){
             return
         }
         eventsToDelete.each{
-            log.info "Deleting ${translator.sourceId(it)}"
+            log.info "Deleting synchronized from iCalendar event with ID: ${translator.sourceId(it)}"
             gCal.delete(it)
         }
     }
