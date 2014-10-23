@@ -13,6 +13,8 @@ Script behaviour:
 * Works for multiple source iCalendar feeds synchronized with single Google Calendar
 * Works for iCal feed from file or URL
 
+This tool was written for [Warsaw.io](http://warsaw.io/) as community task in exchange for great iOS testing workshop run by [Mobile Warsaw Group](http://mobile-warsaw.pl/).
+
 Prerequisites
 =============
 
