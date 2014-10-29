@@ -90,4 +90,4 @@ Running tests:
 
 Known test issues:
 
-* Google Calendar keeps deleted events forever and uses them to calculate page offset. That may degrade performance of tests over as number of deleted events grows with every test. Please see [this Stack Overflow thread for details](http://stackoverflow.com/questions/18566386/google-calendar-v3-api-events-list-request-return-empty-list).
+* Google Calendar keeps deleted events forever and uses them to calculate page offset. That may degrade performance of tests over time as number of deleted events grows with every test. Please see [this Stack Overflow thread for details](http://stackoverflow.com/questions/18566386/google-calendar-v3-api-events-list-request-return-empty-list).
