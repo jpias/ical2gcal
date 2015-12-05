@@ -7,6 +7,7 @@ import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.CalendarScopes
 import com.google.api.services.calendar.Calendar
 import com.google.api.services.calendar.model.Event
+import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import groovy.util.logging.Log
 
 @Log
@@ -14,6 +15,7 @@ class GoogleCalendar {
 
     Calendar calendarApi
     String calendarId
+    Random randomGenerator = new Random();
 
     GoogleCalendar(String serviceId, String keyFile, String calendarId, Calendar calendarApi = null) {
         this.calendarId = calendarId
@@ -33,17 +35,60 @@ class GoogleCalendar {
 
     def insert(Event event) {
         log.fine "Adding Google Calendar event"
-        calendarApi.events().insert(calendarId, event).execute()
+        try{
+		calendarApi.events().insert(calendarId, event).execute()
+	} catch (GoogleJsonResponseException e) {
+		if (e.getDetails().getCode() == 403
+			&& (e.getDetails().getErrors().get(0).getReason().equals("rateLimitExceeded")
+				|| e.getDetails().getErrors().get(0).getReason().equals("userRateLimitExceeded"))) {
+			// Apply exponential backoff.
+			log.fine "Apply exponential backoff."
+			Thread.sleep(1000 + randomGenerator.nextInt(1001));
+			insert(event);
+		} else {
+		        // Other error, re-throw.
+	        	throw e;
+		}
+	}
+	
     }
 
     def update(Event event) {
         log.fine "Updating event with Google Calendar ID: ${event.id}"
-        calendarApi.events().update(calendarId, event.id, event).execute()
+	try{
+	        calendarApi.events().update(calendarId, event.id, event).execute()
+	} catch (GoogleJsonResponseException e) {
+		if (e.getDetails().getCode() == 403
+			&& (e.getDetails().getErrors().get(0).getReason().equals("rateLimitExceeded")
+				|| e.getDetails().getErrors().get(0).getReason().equals("userRateLimitExceeded"))) {
+			// Apply exponential backoff.
+			log.fine "Apply exponential backoff."
+			Thread.sleep(1000 + randomGenerator.nextInt(1001));
+			update(event);
+		} else {
+		        // Other error, re-throw.
+	        	throw e;
+		}
+	}
     }
 
     def delete(Event event) {
         log.fine "Deleting event with Google Calendar ID: ${event.id}"
-        calendarApi.events().delete(calendarId, event.id).execute()
+	try{
+        	calendarApi.events().delete(calendarId, event.id).execute()
+	} catch (GoogleJsonResponseException e) {
+		if (e.getDetails().getCode() == 403
+			&& (e.getDetails().getErrors().get(0).getReason().equals("rateLimitExceeded")
+				|| e.getDetails().getErrors().get(0).getReason().equals("userRateLimitExceeded"))) {
+			// Apply exponential backoff.
+			log.fine "Apply exponential backoff."
+			Thread.sleep(1000 + randomGenerator.nextInt(1001));
+			delete(event);
+		} else {
+		        // Other error, re-throw.
+	        	throw e;
+		}
+	}
     }
 
     private fetchEvents(boolean futureOnly) {
@@ -58,7 +103,7 @@ class GoogleCalendar {
         while (true) {
             log.fine "Fetching page ${++i} of Google Calendar events"
             def list = calendarApi.events().list(calendarId)
-            if (futureOnly) {
+  	    if (futureOnly) {
                 list.setTimeMin(now)
             }
             def eventsPage = list.setPageToken(pageToken).execute()
